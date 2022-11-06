@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+const App: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text style={styles.test}>Fotball chat client TS</Text>
+      <Text> footer TS </Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +14,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#a2a2a2',
     alignItems: 'center',
     justifyContent: 'center',
+    fontWeight: 600
   },
+  test: {
+    color: 'red'
+  }
 });
+
+export default App;
