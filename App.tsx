@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './views/HomeScreen'
+import SingleMatchScreen from './views/SingleMatchScreen';
+
+const Stack = createNativeStackNavigator();
 
 const App: React.FC = () => {
   const [matches, setMatches] = useState([])
@@ -20,27 +25,19 @@ const App: React.FC = () => {
   }, [])
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={matches}
-        renderItem={({ item }: any) => <Text>{item?.homeTeam?.name} - {item?.awayTeam?.name}</Text>}
-      />
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+        >
+          {(props) => <HomeScreen {...props} matches={matches} />}
+        </Stack.Screen>
+        <Stack.Screen name="SingleMatch" component={SingleMatchScreen} />
+      </Stack.Navigator>
+
       < StatusBar style="auto" />
-    </View >
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#a2a2a2',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: 600
-  },
-  test: {
-    color: 'red'
-  }
-});
 
 export default App;
