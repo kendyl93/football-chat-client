@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { styles } from '../utils/styles'
 import { FlatList, Pressable, Text, TextInput, View } from 'react-native';
 import MessageComponent from './MessageComponent';
+import socket from '../utils/socket';
 
 const SingleMatchScreen = ({ route }: any) => {
-    const { teams } = route.params;
+    const { teams, id } = route.params;
     const [chatMessages, setChatMessages] = useState([
         {
             id: "1",
@@ -21,6 +22,10 @@ const SingleMatchScreen = ({ route }: any) => {
     ]);
     const [message, setMessage] = useState("");
     const [user, setUser] = useState("David");
+
+    useLayoutEffect(() => {
+        socket.emit("chat message", 'hello');
+    }, []);
 
     const handleNewMessage = () => {
         const hour =

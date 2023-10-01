@@ -1,6 +1,7 @@
 import { FlatList, SafeAreaView, View, Button, StyleSheet } from 'react-native';
 
 const HomeScreen = ({ navigation, matches }: any) => {
+    // console.log({ matches })
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
@@ -9,7 +10,7 @@ const HomeScreen = ({ navigation, matches }: any) => {
                     <View style={styles.matchRow}>
                         <Button
                             title={`${item?.homeTeam?.name} - ${item?.awayTeam?.name}`}
-                            onPress={() => navigation.navigate('SingleMatch', { teams: `${item?.homeTeam?.name} - ${item?.awayTeam?.name}` })}
+                            onPress={() => navigation.navigate('SingleMatch', { teams: `${item?.homeTeam?.name} - ${item?.awayTeam?.name}`, id: item.id })}
                         />
                     </View>
                 }

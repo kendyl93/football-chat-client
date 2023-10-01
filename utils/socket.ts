@@ -1,5 +1,16 @@
-import * as io from "socket.io-client";
-import { API_URL } from '../App'
+import io from "socket.io-client";
 
-const socket = io.connect(API_URL);
+const SOCKET_URL = `http://192.168.1.36:3025`;
+
+const socket = io(SOCKET_URL, { transports: ['websocket'] });
+
+socket.on('connect', () => {
+    console.log('⚡️[socket] Connected to server');
+});
+
+socket.on('disconnect', () => {
+    console.log('⚡️[socket] Disconnected from server');
+});
+
+
 export default socket;
