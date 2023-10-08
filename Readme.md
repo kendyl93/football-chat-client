@@ -6,5 +6,5 @@
 
 # todo:
 
-- Make the chat work\
+- Update navigation to have URL updated
 - Create user names and save it in the store

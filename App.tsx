@@ -7,7 +7,7 @@ import HomeScreen from './views/HomeScreen'
 import SingleMatchScreen from './views/SingleMatchScreen';
 import socket from "./utils/socket";
 
-export const API_URL = `http://192.168.1.36`; // need to put ip from ifconfig
+export const API_URL = `http://192.168.1.35`; // need to put ip from ifconfig
 
 const Stack = createNativeStackNavigator();
 
@@ -19,10 +19,6 @@ const App: React.FC = () => {
       try {
         const response = await axios.get(`${API_URL}:4001/api/chatRoom/redisChatRooms`); // put IP instead of localhost
         setMatches(response?.data?.data?.matches);
-        response?.data?.data?.matches.map((match: any) => {
-          // console.log({ MATCH: `${match?.homeTeam?.name} - ${match?.awayTeam?.name}` })
-          socket.emit("createRoom", `${match?.homeTeam?.name} - ${match?.awayTeam?.name}`);
-        })
       } catch (error) {
         console.error(error)
       }
@@ -32,7 +28,7 @@ const App: React.FC = () => {
   }, [])
 
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <Stack.Navigator>
         <Stack.Screen
           name="Home"
