@@ -6,5 +6,6 @@
 
 # todo:
 
+- Make empty img responsive
 - Update navigation to have URL updated
 - Create user names and save it in the store

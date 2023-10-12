@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './views/HomeScreen'
 import SingleMatchScreen from './views/SingleMatchScreen';
 import socket from "./utils/socket";
+import EmptyResult from './views/EmptyResult';
 
 export const API_URL = `http://192.168.1.35`; // need to put ip from ifconfig
 
@@ -30,11 +31,15 @@ const App: React.FC = () => {
   return (
     <NavigationContainer >
       <Stack.Navigator>
-        <Stack.Screen
+        {matches.length > 0 ? <Stack.Screen
           name="Home"
         >
           {(props) => <HomeScreen {...props} matches={matches} />}
-        </Stack.Screen>
+        </Stack.Screen> : <Stack.Screen
+          name="EmptyResult"
+        >
+          {() => <EmptyResult />}
+        </Stack.Screen>}
         <Stack.Screen name="SingleMatch" component={SingleMatchScreen} />
       </Stack.Navigator>
 
