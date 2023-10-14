@@ -1,12 +1,10 @@
-import { FlatList, SafeAreaView, View, Button, StyleSheet, Text, Image, Dimensions } from 'react-native';
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import { SafeAreaView, StyleSheet, Image } from 'react-native';
+import { windowHeight } from '../constants';
 
 const EmptyResult = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <Image style={styles.image} source={require('../assets/dog-walk.png')} />
+            <Image style={styles.image} source={require('../../assets/dog-walk.png')} />
         </SafeAreaView>
     )
 }

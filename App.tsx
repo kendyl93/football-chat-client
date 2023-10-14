@@ -1,32 +1,22 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './views/HomeScreen'
-import SingleMatchScreen from './views/SingleMatchScreen';
-import socket from "./utils/socket";
-import EmptyResult from './views/EmptyResult';
+import SingleMatchScreen from './src/views/SingleMatchScreen/SingleMatchScreen';
+import { HomeScreen } from './src/views/Home';
+import { useGetAppData } from './hooks';
+import { MatchRow } from './src/shared/components/MatchRow';
+import { Team } from './src/shared/types';
 
-export const API_URL = `http://192.168.1.35`; // need to put ip from ifconfig
 
-const Stack = createNativeStackNavigator();
+type RootStackParamList = {
+  Home: undefined;
+  SingleMatch: { homeTeam: Team, awayTeam: Team };
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
-  const [matches, setMatches] = useState([])
-
-  useEffect(() => {
-    const getAPIdata = async () => {
-      try {
-        const response = await axios.get(`${API_URL}:4001/api/chatRoom/redisChatRooms`); // put IP instead of localhost
-        setMatches(response?.data?.data?.matches);
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    getAPIdata();
-  }, [])
+  const matches = useGetAppData()
 
   return (
     <NavigationContainer >
@@ -36,7 +26,9 @@ const App: React.FC = () => {
         >
           {(props) => <HomeScreen {...props} matches={matches} />}
         </Stack.Screen>
-        <Stack.Screen name="SingleMatch" component={SingleMatchScreen} />
+        <Stack.Screen name="SingleMatch" options={({ route }) => ({
+          headerTitle: (props) => <MatchRow {...props} homeTeam={route.params.homeTeam} awayTeam={route.params.awayTeam} />
+        })} component={SingleMatchScreen} />
       </Stack.Navigator>
 
       <StatusBar style="auto" />

@@ -1,9 +1,11 @@
 import { FlatList, SafeAreaView, View, Button, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
-import EmptyResult from './EmptyResult';
+import { ChatRoom } from '../../../hooks';
 
-const Item = ({ item, navigation }: any) => {
+
+
+export const MatchRow = ({ item, navigation }: { item: ChatRoom, navigation: any }) => {
     const handleNavigation = (item: any) => {
-        navigation.navigate('SingleMatch', { teams: `${item?.homeTeam?.name} - ${item?.awayTeam?.name}`, id: item.id });
+        navigation.navigate('SingleMatch', { homeTeam: { shortName: item?.homeTeam?.shortName, crest: item?.homeTeam?.crest }, awayTeam: { shortName: item?.awayTeam?.shortName, crest: item?.awayTeam?.crest }, id: item.id });
     };
 
     return (
@@ -33,33 +35,7 @@ const Item = ({ item, navigation }: any) => {
     )
 };
 
-const HomeScreen = ({ navigation, matches }: any) => {
-    // console.log({ matches })
-
-    return (
-        <SafeAreaView style={styles.container}>
-            {matches.length > 0 ? <FlatList
-                style={styles.containerInner}
-                data={matches}
-                renderItem={({ item }: any) => <Item item={item} navigation={navigation} />}
-            /> : <EmptyResult />}
-        </SafeAreaView>
-    )
-}
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#a2a2a2',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: 600,
-    },
-    containerInner: {
-        width: '70%',
-        minWidth: 300,
-        margin: 'auto'
-    },
     matchRow: {
         marginTop: 16,
         borderWidth: 1,
@@ -81,5 +57,3 @@ const styles = StyleSheet.create({
         height: 40,
     }
 });
-
-export default HomeScreen;
