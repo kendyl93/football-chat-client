@@ -9,7 +9,7 @@ type SingleMatchScreen = {
     route: any
 }
 
-const SingleMatchScreen = ({ route }: SingleMatchScreen) => {
+export const SingleMatchScreen = ({ route }: SingleMatchScreen) => {
     const { chatMessages, messaginginputContainerHeight, setMessaginginputContainer, handleNewMessage, message, setMessage, user } = useSingleMatchScreen(route.params)
 
     return (
@@ -59,5 +59,3 @@ const SingleMatchScreen = ({ route }: SingleMatchScreen) => {
         </View>
     )
 }
-
-export default SingleMatchScreen;

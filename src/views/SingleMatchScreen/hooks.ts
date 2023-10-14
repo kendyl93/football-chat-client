@@ -33,9 +33,6 @@ export const useSingleMatchScreen = (params: any) => {
         if (!user) {
             setUser(socket.id)
         }
-
-        // should get messages here
-        console.log({ useLayoutEffect })
     }, []);
 
 
