@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { styles } from '../utils/styles'
-import { FlatList, Pressable, Text, TextInput, View } from 'react-native';
+import { FlatList, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 import MessageComponent from './MessageComponent';
 import socket from '../utils/socket';
 import { API_URL } from '../App';
@@ -20,11 +20,15 @@ const SingleMatchScreen = ({ route }: any) => {
     const { teams, id } = route.params;
     const [chatMessages, setChatMessages] = useState<any[]>();
     const [message, setMessage] = useState("");
-    const [user, setUser] = useState("David");
+    const [user, setUser] = useState('');
+    const [messaginginputContainerHeight, setMessaginginputContainer] = useState(0)
 
     useLayoutEffect(() => {
         socket.emit('join-room', id, async () => await getRoomMessages(id, setChatMessages))
-        // socket.emit("chat message", 'hello');
+        if (!user) {
+            setUser(socket.id)
+        }
+
         // should get messages here
         console.log({ useLayoutEffect })
     }, []);
@@ -76,6 +80,8 @@ const SingleMatchScreen = ({ route }: any) => {
                 senderId: `${user}-random-id`,
                 message
             });
+
+            setMessage('')
         } catch (error) {
             console.error(error)
         }
@@ -94,9 +100,9 @@ const SingleMatchScreen = ({ route }: any) => {
             >
                 {chatMessages && chatMessages[0] ? (
                     <FlatList
-                        data={chatMessages}
+                        inverted
+                        data={[...chatMessages].reverse()}
                         renderItem={({ item }) => {
-                            console.log({ item })
                             return (
                                 <MessageComponent item={item} user={user} />
                             )
@@ -108,20 +114,26 @@ const SingleMatchScreen = ({ route }: any) => {
                 )}
             </View>
 
-            <View style={styles.messaginginputContainer}>
-                <TextInput
-                    style={styles.messaginginput}
-                    onChangeText={(value) => setMessage(value)}
-                />
-                <Pressable
-                    style={styles.messagingbuttonContainer}
-                    onPress={handleNewMessage}
-                >
-                    <View>
-                        <Text style={{ color: "#f2f0f1", fontSize: 20 }}>SEND</Text>
-                    </View>
-                </Pressable>
-            </View>
+            <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={messaginginputContainerHeight - 20}>
+                <View style={styles.messaginginputContainer} onLayout={({ nativeEvent }) => {
+                    const { x, y, width, height } = nativeEvent.layout
+                    setMessaginginputContainer(height)
+                }}>
+                    <TextInput
+                        style={styles.messaginginput}
+                        value={message}
+                        onChangeText={(value) => setMessage(value)}
+                    />
+                    <Pressable
+                        style={styles.messagingbuttonContainer}
+                        onPress={handleNewMessage}
+                    >
+                        <View>
+                            <Text style={{ color: "#f2f0f1", fontSize: 20 }}>SEND</Text>
+                        </View>
+                    </Pressable>
+                </View>
+            </KeyboardAvoidingView>
         </View>
     )
 }

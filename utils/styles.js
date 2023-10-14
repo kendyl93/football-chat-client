@@ -139,19 +139,17 @@ export const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: "center",
     },
-    mmessageWrapper: {
+    messageWrapper: {
         width: "100%",
         alignItems: "flex-start",
         marginBottom: 15,
     },
-    mmessage: {
+    message: {
         backgroundColor: "#f5ccc2",
         padding: 15,
         borderRadius: 10,
         marginBottom: 2,
-    },
-    mvatar: {
-        marginRight: 5,
+        marginLeft: 5
     },
     cchat: {
         width: "100%",
@@ -183,4 +181,10 @@ export const styles = StyleSheet.create({
     ctime: {
         opacity: 0.5,
     },
+    userAvatarContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
