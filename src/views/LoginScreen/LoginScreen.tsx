@@ -23,7 +23,7 @@ export const LoginScreen = ({ setIsLoggedIn, setUserName }: any) => {
                     onPress={setIsLoggedIn}
                 >
                     <View>
-                        <Text style={{ color: "#f2f0f1", fontSize: 20 }}>SEND</Text>
+                        <Text style={{ color: "#f2f0f1", fontSize: 20 }}>LOGIN</Text>
                     </View>
                 </Pressable>
             </View>

@@ -6,6 +6,8 @@
 
 # todo:
 
+- Add unique keys to FlatList messages
+- Set userName in context to share it with other components => if needed implement redux
 - Make empty img responsive
 - Update navigation to have URL updated
 - Create user names and save it in the store

@@ -1,5 +1,4 @@
 import React from 'react';
-import { RouteProp } from '@react-navigation/native';
 import { styles } from './styles'
 import { FlatList, KeyboardAvoidingView, Pressable, Text, TextInput, View } from 'react-native';
 import { Message } from './Message';
