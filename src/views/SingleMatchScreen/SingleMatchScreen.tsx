@@ -6,11 +6,12 @@ import { Message } from './Message';
 import { useSingleMatchScreen } from './hooks';
 
 type SingleMatchScreen = {
-    route: any
+    route: any;
+    userName: string
 }
 
-export const SingleMatchScreen = ({ route }: SingleMatchScreen) => {
-    const { chatMessages, messaginginputContainerHeight, setMessaginginputContainer, handleNewMessage, message, setMessage, user } = useSingleMatchScreen(route.params)
+export const SingleMatchScreen = ({ route, userName }: SingleMatchScreen) => {
+    const { chatMessages, messaginginputContainerHeight, setMessaginginputContainer, handleNewMessage, message, setMessage } = useSingleMatchScreen(route.params, userName)
 
     return (
         <View style={styles.messagingscreen}>
@@ -26,7 +27,7 @@ export const SingleMatchScreen = ({ route }: SingleMatchScreen) => {
                         data={[...chatMessages].reverse()}
                         renderItem={({ item }) => {
                             return (
-                                <Message item={item} user={user} />
+                                <Message item={item} userName={userName} />
                             )
                         }}
                         keyExtractor={(item) => item.id}

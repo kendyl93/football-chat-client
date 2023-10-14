@@ -3,8 +3,8 @@ import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "./styles";
 
-export const Message = ({ item, user }: any) => {
-    const status = item.senderName !== user;
+export const Message = ({ item, userName }: any) => {
+    const status = item.senderName !== userName;
 
     return (
         <View>

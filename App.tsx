@@ -50,7 +50,9 @@ const App: React.FC = () => {
             </Stack.Screen>
             <Stack.Screen name="SingleMatch" options={({ route }) => ({
               headerTitle: (props) => <MatchRow {...props} homeTeam={route.params.homeTeam} awayTeam={route.params.awayTeam} />
-            })} component={SingleMatchScreen} />
+            })}>
+              {(props) => <SingleMatchScreen {...props} userName={userName} />}
+            </Stack.Screen>
           </>
         ) : (
           <>

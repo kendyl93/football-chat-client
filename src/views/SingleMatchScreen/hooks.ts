@@ -21,18 +21,14 @@ const getRoomMessages = async (roomId: number, setMessages: (chatMessages: ChatM
     }
 }
 
-export const useSingleMatchScreen = (params: any) => {
+export const useSingleMatchScreen = (params: any, userName: string) => {
     const { id } = params;
     const [chatMessages, setChatMessages] = useState<ChatMessage[]>();
     const [message, setMessage] = useState("");
-    const [user, setUser] = useState('');
     const [messaginginputContainerHeight, setMessaginginputContainer] = useState(0)
 
     useLayoutEffect(() => {
         socket.emit('join-room', id, async () => await getRoomMessages(id, setChatMessages))
-        if (!user) {
-            setUser(socket.id)
-        }
     }, []);
 
 
@@ -65,15 +61,15 @@ export const useSingleMatchScreen = (params: any) => {
 
         console.log({
             message,
-            user,
+            userName,
             timestamp: { hour, mins },
         });
 
         try {
             socket.emit("send room message", {
                 roomId: id,
-                senderName: user,
-                senderId: `${user}-random-id`,
+                senderName: userName,
+                senderId: `${userName}-random-id`,
                 message
             });
 
@@ -84,6 +80,6 @@ export const useSingleMatchScreen = (params: any) => {
     };
 
     return {
-        chatMessages, messaginginputContainerHeight, setMessaginginputContainer, handleNewMessage, message, setMessage, user
+        chatMessages, messaginginputContainerHeight, setMessaginginputContainer, handleNewMessage, message, setMessage
     }
 }
