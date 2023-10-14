@@ -31,19 +31,15 @@ const App: React.FC = () => {
   return (
     <NavigationContainer >
       <Stack.Navigator>
-        {matches.length > 0 ? <Stack.Screen
+        <Stack.Screen
           name="Home"
         >
           {(props) => <HomeScreen {...props} matches={matches} />}
-        </Stack.Screen> : <Stack.Screen
-          name="EmptyResult"
-        >
-          {() => <EmptyResult />}
-        </Stack.Screen>}
+        </Stack.Screen>
         <Stack.Screen name="SingleMatch" component={SingleMatchScreen} />
       </Stack.Navigator>
 
-      < StatusBar style="auto" />
+      <StatusBar style="auto" />
     </NavigationContainer>
   );
 }

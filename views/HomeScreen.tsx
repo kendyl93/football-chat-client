@@ -1,4 +1,5 @@
 import { FlatList, SafeAreaView, View, Button, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import EmptyResult from './EmptyResult';
 
 const Item = ({ item, navigation }: any) => {
     const handleNavigation = (item: any) => {
@@ -37,11 +38,11 @@ const HomeScreen = ({ navigation, matches }: any) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <FlatList
+            {matches.length > 0 ? <FlatList
                 style={styles.containerInner}
                 data={matches}
                 renderItem={({ item }: any) => <Item item={item} navigation={navigation} />}
-            />
+            /> : <EmptyResult />}
         </SafeAreaView>
     )
 }
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     },
     matchRowContent: {
         display: 'flex',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 8,
